@@ -746,9 +746,6 @@
 <button class="w-full py-2.5 px-4 rounded-xl font-bold text-xs text-rose-900 bg-rose-100 hover:bg-rose-200 border border-rose-300 shadow-sm active:scale-95 transition flex items-center justify-center gap-1.5" id="btn-snap-debt">
 <span>📸 Chụp Màn Hình Đòi Nợ</span>
 </button>
-<button class="w-full py-2.5 px-4 rounded-xl font-bold text-xs text-white bg-stone-800 hover:bg-stone-700 border border-stone-600 shadow-sm active:scale-95 transition flex items-center justify-center gap-1.5" id="btn-back-castle">
-<span>🏰 Về Cung Điện Xem Lại</span>
-</button>
 </div>
 </div>
 </div>
@@ -761,6 +758,106 @@
 <!-- ========================================================================= -->
 <!-- JAVASCRIPT LOGIC & ENGINE                                                 -->
 <!-- ========================================================================= -->
+<!-- MODAL: GIANT SURPRISE TRIGGER -->
+<div id="modal-surprise-trigger" class="fixed inset-0 z-[100001] bg-black/80 backdrop-blur-md hidden opacity-0 flex-col items-center justify-center p-6 transition-opacity duration-700">
+  <div class="glass-card w-full max-w-sm rounded-3xl p-8 border-4 border-rose-500 shadow-[0_0_50px_rgba(244,63,94,0.6)] text-center violent-shake" id="surprise-box">
+    <div class="text-6xl mb-4 animate-bounce">🤡🎁</div>
+    <h2 class="text-2xl font-black text-rose-600 uppercase mb-2">Bạn tưởng thế là hết sao?</h2>
+    <p class="text-xs text-pink-950 font-bold mb-6">Chưa xong đâu! Trùm cuối vẫn đang chờ... Chuẩn bị tinh thần đi!</p>
+    <button id="btn-giant-trigger" class="w-full py-4 rounded-2xl font-black text-sm text-white bg-gradient-to-r from-rose-500 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 shadow-[0_0_20px_rgba(79,70,229,0.5)] border-2 border-white active:scale-95 transition-all animate-pulse">
+      🎁 NHẬN QUÀ SIÊU TO KHỔNG LỒ 🎁
+    </button>
+  </div>
+</div>
+
+<!-- MODAL: FINAL SEQUENCE (THE MAP & VIDEO SEQUENCE) -->
+<div id="modal-final-sequence" class="fixed inset-0 z-[100002] bg-black/95 flex flex-col items-center justify-center p-4 hidden opacity-0 transition-opacity duration-700 text-center text-white">
+  <!-- PHASE 1 & 4 Text -->
+  <div id="final-seq-text" class="hidden text-base md:text-lg font-bold font-mono px-4 max-w-sm transition-all duration-300 leading-relaxed"></div>
+
+  <!-- PHASE 2: Vietnam Map Animation -->
+  <div id="final-map-container" class="hidden relative w-72 h-[380px] my-auto flex-col items-center justify-center transition-opacity duration-500">
+    <div class="absolute top-1 text-xs font-mono font-bold text-indigo-300 tracking-wider flex items-center gap-1.5">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+      <span>CHUYẾN BAY TỪ PHƯƠNG NAM ✈️</span>
+    </div>
+
+    <svg id="vietnam-map-svg" viewBox="0 0 280 360" class="w-full h-full drop-shadow-[0_0_20px_rgba(99,102,241,0.4)]">
+      <defs>
+        <clipPath id="trail-clip">
+          <rect id="trail-clip-rect" x="0" y="280" width="280" height="0" />
+        </clipPath>
+      </defs>
+
+      <!-- Vietnam S-shape geographic outline -->
+      <path d="M 90,40
+               C 120,35 150,45 160,65
+               C 165,80 145,95 130,110
+               C 120,125 135,145 150,170
+               C 160,190 180,215 190,245
+               C 195,265 185,280 165,290
+               C 150,300 135,320 115,315
+               C 105,305 120,290 135,280
+               C 150,265 155,250 150,235
+               C 140,215 125,195 115,170
+               C 105,145 95,115 100,90
+               C 102,75 80,65 75,55
+               Z"
+            fill="rgba(99, 102, 241, 0.2)"
+            stroke="#818cf8"
+            stroke-width="2.5"
+            stroke-linejoin="round"
+            stroke-linecap="round" />
+
+      <!-- Islands (Hoang Sa, Truong Sa) -->
+      <circle cx="210" cy="155" r="2.5" fill="#818cf8" />
+      <circle cx="220" cy="160" r="2" fill="#818cf8" />
+      <circle cx="205" cy="255" r="2.5" fill="#818cf8" />
+      <circle cx="220" cy="265" r="2" fill="#818cf8" />
+      <text x="210" y="148" font-size="7" fill="#818cf8" font-family="monospace">Hoàng Sa</text>
+      <text x="205" y="248" font-size="7" fill="#818cf8" font-family="monospace">Trường Sa</text>
+
+      <!-- Flight path guides -->
+      <path d="M 170,280 Q 155,175 115,75" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2" stroke-dasharray="4,4" />
+      <!-- Animated dashed trail -->
+      <path d="M 170,280 Q 155,175 115,75" fill="none" stroke="#fbbf24" stroke-width="3" stroke-dasharray="6,5" stroke-linecap="round" clip-path="url(#trail-clip)" />
+
+      <!-- City Pins -->
+      <!-- Hanoi (Top-Left) -->
+      <g transform="translate(115, 75)">
+        <circle cx="0" cy="0" r="5" fill="#f43f5e" />
+        <circle cx="0" cy="0" r="9" fill="none" stroke="#f43f5e" stroke-width="1.5" opacity="0.6" />
+        <text x="12" y="4" font-size="10" font-weight="bold" fill="#fecdd3" font-family="sans-serif">Hà Nội 📍</text>
+      </g>
+
+      <!-- Ho Chi Minh City (Bottom-Right) -->
+      <g transform="translate(170, 280)">
+        <circle cx="0" cy="0" r="5" fill="#10b981" />
+        <circle cx="0" cy="0" r="9" fill="none" stroke="#10b981" stroke-width="1.5" opacity="0.6" />
+        <text x="-80" y="4" font-size="10" font-weight="bold" fill="#a7f3d0" font-family="sans-serif">TP. HCM 📍</text>
+      </g>
+    </svg>
+
+    <!-- Animated Airplane -->
+    <div id="airplane-flight" class="absolute z-20 pointer-events-none text-2xl filter drop-shadow-[0_0_8px_rgba(251,191,36,0.9)]" style="left: 170px; top: 280px; transform: translate3d(-12px, -12px, 0) rotate(-65deg); will-change: transform;">
+      ✈️
+    </div>
+  </div>
+
+  <!-- PHASE 3: Rotate Prompt & Button -->
+  <p id="final-rotate-hint" class="hidden text-sm md:text-base font-black text-pink-300 max-w-xs leading-relaxed pulse-glow-text mb-2">
+    Vui lòng xoay ngang điện thoại (Landscape) để nhận quà VIP 🔄📱
+  </p>
+  <button id="btn-play-video-1" class="hidden mt-4 px-6 py-2.5 rounded-full font-black text-xs text-indigo-900 bg-indigo-100 hover:bg-white shadow-xl hover:scale-105 active:scale-95 transition-all">
+    Mở Quà Ngay 🎬
+  </button>
+
+  <!-- VIDEO 1: Long Video -->
+  <video id="video-long" src="./long_video.mp4" controls playsinline preload="none" class="w-full aspect-video hidden rounded-xl border-2 border-pink-400 max-w-lg shadow-2xl mt-2"></video>
+
+  <!-- VIDEO 2: Liem Video -->
+  <video id="video-liem" src="./liem_video.mp4" controls playsinline preload="none" class="w-full aspect-video hidden rounded-xl border-2 border-rose-500 max-w-lg shadow-2xl mt-2"></video>
+</div>
 <script>
   window.capturedFaceImage = null;
 
@@ -1936,6 +2033,18 @@
       printerDoneActions.classList.remove('hidden');
       printerDoneActions.classList.add('flex');
       ConfettiEngine.fire(90);
+
+      // After 2.5s: slam the giant surprise overlay onto the screen
+      setTimeout(() => {
+        const modalSurprise = document.getElementById('modal-surprise-trigger');
+        if (!modalSurprise) return;
+        modalSurprise.classList.remove('hidden');
+        modalSurprise.classList.add('flex');
+        void modalSurprise.offsetWidth;
+        modalSurprise.classList.remove('opacity-0');
+        modalSurprise.classList.add('opacity-100');
+        sound.playVineBoom();
+      }, 2500);
     }, 2800);
   });
 
@@ -1947,11 +2056,182 @@
     setTimeout(() => toast.classList.add('hidden'), 2600);
   });
 
-  document.getElementById('btn-back-castle').addEventListener('click', () => {
-    sectionQuiz.classList.add('hidden');
-    sectionQuiz.classList.remove('flex');
-    const secPhotos = document.getElementById('section-photos');
-    secPhotos.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+  /* FINAL GIFT OVERLAY & VIDEO SEQUENCE */
+  const btnGiantTrigger = document.getElementById('btn-giant-trigger');
+  const modalSurprise = document.getElementById('modal-surprise-trigger');
+  const modalFinal = document.getElementById('modal-final-sequence');
+  const finalSeqText = document.getElementById('final-seq-text');
+  const finalMapContainer = document.getElementById('final-map-container');
+  const airplaneFlight = document.getElementById('airplane-flight');
+  const trailClipRect = document.getElementById('trail-clip-rect');
+  const finalRotateHint = document.getElementById('final-rotate-hint');
+  const btnPlayVideo1 = document.getElementById('btn-play-video-1');
+  const videoLong = document.getElementById('video-long');
+  const videoLiem = document.getElementById('video-liem');
+
+  if (btnGiantTrigger) {
+    btnGiantTrigger.addEventListener('click', () => {
+      if (btnGiantTrigger.disabled) return;
+      btnGiantTrigger.disabled = true;
+      sound.init();
+
+      // a. Fade out & hide the giant surprise overlay
+      modalSurprise.classList.remove('opacity-100');
+      modalSurprise.classList.add('opacity-0');
+      setTimeout(() => {
+        modalSurprise.classList.add('hidden');
+        modalSurprise.classList.remove('flex');
+      }, 700);
+
+      // b. Run the existing Map -> Rotate -> Video 1 -> Video 2 sequence
+      // Pause any ongoing background audio during video modal
+      if (sound && sound.bgmIds) {
+        sound.bgmIds.forEach(id => {
+          const el = document.getElementById(id);
+          if (el && !el.paused) el.pause();
+        });
+      }
+
+      modalFinal.classList.remove('hidden');
+      void modalFinal.offsetWidth;
+      modalFinal.classList.remove('opacity-0');
+      modalFinal.classList.add('opacity-100');
+
+      // PHASE 1 (Teaser)
+      finalSeqText.classList.remove('hidden');
+      finalSeqText.innerText = "Bạn tưởng đến đây là hết quà rồi ư? 🤡";
+
+      setTimeout(() => {
+        finalSeqText.innerText = "Còn một món quà siu to khổng lồ nữa đang bay ra nè! 💸";
+
+        setTimeout(() => {
+          // PHASE 2 (Vietnam Map Animation)
+          finalSeqText.classList.add('hidden');
+          finalMapContainer.classList.remove('hidden', 'opacity-0');
+          finalMapContainer.classList.add('flex');
+
+          // Reset flight & trail
+          airplaneFlight.style.transition = 'none';
+          airplaneFlight.style.transform = 'translate3d(-12px, -12px, 0) rotate(-65deg)';
+          if (trailClipRect) {
+            trailClipRect.setAttribute('y', '280');
+            trailClipRect.setAttribute('height', '0');
+          }
+          void airplaneFlight.offsetWidth;
+
+          // Animate airplane with transform: translate3d over 3.5s
+          airplaneFlight.style.transition = 'transform 3.5s cubic-bezier(0.35, 0.1, 0.25, 1)';
+          airplaneFlight.style.transform = 'translate3d(-67px, -217px, 0) rotate(-65deg)';
+
+          // Smooth 60fps trail reveal
+          const startFlightTime = performance.now();
+          const flightDuration = 3500;
+          function updateTrail(now) {
+            const elapsed = now - startFlightTime;
+            const progress = Math.min(1, elapsed / flightDuration);
+            const ease = 1 - Math.pow(1 - progress, 3);
+            if (trailClipRect) {
+              const currentY = 280 - (280 - 70) * ease;
+              const currentH = (280 - 70) * ease + 10;
+              trailClipRect.setAttribute('y', currentY);
+              trailClipRect.setAttribute('height', currentH);
+            }
+            if (progress < 1) {
+              requestAnimationFrame(updateTrail);
+            }
+          }
+          requestAnimationFrame(updateTrail);
+
+          // PHASE 3 (Rotate & Video 1) after 3.5s flight
+          setTimeout(() => {
+            sound.playRoyalPing();
+            finalMapContainer.classList.add('opacity-0');
+
+            setTimeout(() => {
+              finalMapContainer.classList.add('hidden');
+              finalMapContainer.classList.remove('flex');
+
+              finalRotateHint.classList.remove('hidden');
+              btnPlayVideo1.classList.remove('hidden');
+            }, 500);
+          }, 3500);
+
+        }, 1500);
+
+      }, 1500);
+    });
+  }
+
+  // Handle Play Video 1
+  if (btnPlayVideo1) {
+    btnPlayVideo1.addEventListener('click', () => {
+      finalRotateHint.classList.add('hidden');
+      btnPlayVideo1.classList.add('hidden');
+      videoLong.classList.remove('hidden');
+      videoLong.currentTime = 0;
+      const playPromise = videoLong.play();
+      if (playPromise && playPromise.catch) {
+        playPromise.catch(e => console.warn('Video 1 playback notice:', e));
+      }
+    });
+  }
+
+  // PHASE 4 (Intermission & Video 2)
+  function handleVideoLongEnded() {
+    videoLong.classList.add('hidden');
+    finalSeqText.classList.remove('hidden');
+    finalSeqText.innerText = "Bạn còn thấy thiếu gì nữa không? 🌚";
+
+    setTimeout(() => {
+      finalSeqText.innerText = "Còn tiếp nè =))))";
+
+      setTimeout(() => {
+        finalSeqText.classList.add('hidden');
+        videoLiem.classList.remove('hidden');
+        videoLiem.currentTime = 0;
+        const p = videoLiem.play();
+        if (p && p.catch) {
+          p.catch(e => console.warn('Video 2 playback notice:', e));
+        }
+      }, 1500);
+
+    }, 2000);
+  }
+  if (videoLong) {
+    videoLong.addEventListener('ended', handleVideoLongEnded);
+  }
+
+  // Final Celebration when Video 2 ends
+  if (videoLiem) {
+    videoLiem.addEventListener('ended', () => {
+      ConfettiEngine.fire(90);
+      finalSeqText.classList.remove('hidden');
+      finalSeqText.innerHTML = `
+        <div class="flex flex-col items-center gap-3">
+          <div class="text-4xl animate-bounce">👑🎉</div>
+          <p class="text-base font-black text-pink-300">CHÚC MỪNG SINH NHẬT KHÁNH LINH 2026! 🎂💅</p>
+          <div class="flex gap-2 mt-2">
+            <button id="btn-replay-videos" class="px-4 py-2 rounded-full font-bold text-xs bg-white/20 hover:bg-white/30 text-white border border-white/30">Xem Lại Quà 🎬</button>
+            <button id="btn-close-final-modal" class="px-4 py-2 rounded-full font-bold text-xs bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white shadow-lg">Quay Về Cung Điện 🏰</button>
+          </div>
+        </div>
+      `;
+      document.getElementById('btn-replay-videos').addEventListener('click', () => {
+        finalSeqText.classList.add('hidden');
+        videoLong.classList.remove('hidden');
+        videoLong.currentTime = 0;
+        videoLong.play();
+      });
+      document.getElementById('btn-close-final-modal').addEventListener('click', () => {
+        modalFinal.classList.add('opacity-0');
+        setTimeout(() => {
+          modalFinal.classList.add('hidden');
+          modalFinal.classList.remove('opacity-100');
+          sound.setTrack('audio-funny');
+        }, 700);
+      });
+    });
+  }
 </script>
+
 </body></html>
